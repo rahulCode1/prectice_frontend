@@ -18,7 +18,14 @@ export default UserDetails;
 export const loader = async ({ request, params }) => {
   const userId = params.id;
 
-  const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/${userId}`);
-  const userDetails = res.data.user;
-  return userDetails;
+  try {
+    const res = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/${userId}`,
+    );
+    const userDetails = res.data.user;
+    return userDetails;
+  } catch (err) {
+    console.log(err);
+    console.log(err.response.data.message);
+  }
 };

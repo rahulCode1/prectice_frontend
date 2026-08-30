@@ -11,12 +11,17 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}`, {
-        headers: {
-          Authorization: `Beared ${token}`,
-        },
-      });
-      setUsers(res.data.users);
+      try {
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}`, {
+          headers: {
+            Authorization: `Beared ${token}`,
+          },
+        });
+        setUsers(res.data.users);
+      } catch (err) {
+        console.log(err);
+        console.log(err.response.data.message);
+      }
     };
 
     fetchUsers();
